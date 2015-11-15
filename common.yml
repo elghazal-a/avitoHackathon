@@ -1,0 +1,7 @@
+usrv:
+    image: quay.io/geniousphp/node-dev:0.12
+    volumes:
+    - /etc:/opt/etc
+    dns: 172.17.42.1
+    environment:
+    - NODE_ENV=development

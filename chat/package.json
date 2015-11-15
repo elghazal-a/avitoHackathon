@@ -1,0 +1,13 @@
+{
+  "name": "chat",
+  "version": "0.0.0",
+  "description": "",
+  "private": true,
+  "main": "server.js",
+  "scripts": {
+    "start": "DEBUG=socket:* node-dev server.js"
+  },
+  "dependencies": {
+    "socket.io": "^1.3.7"
+  }
+}

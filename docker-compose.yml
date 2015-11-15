@@ -1,0 +1,96 @@
+client:
+    extends:
+        file: common.yml
+        service: usrv
+    volumes:
+    - ./client:/app/
+    ports:
+    - "3000:3000"
+    environment:
+    - VIRTUAL_HOST=avito.local
+    - VIRTUAL_PORT=3000
+    labels:
+    - "soam.log=yes"
+
+# auth:
+#     extends:
+#         file: common.yml
+#         service: usrv
+#     volumes:
+#     - ./auth:/app/
+#     ports:
+#     - "3010:3010"
+#     links:
+#     - config
+#     - mongodb
+#     environment:
+#     - VIRTUAL_HOST=auth.avito.local
+#     - VIRTUAL_PORT=3010
+#     labels:
+#     - "soam.log=yes"
+
+chat:
+    extends:
+        file: common.yml
+        service: usrv
+    volumes:
+    - ./chat:/app/
+    ports:
+    - "3020:3020"
+    environment:
+    - VIRTUAL_HOST=chat.avito.local
+    - VIRTUAL_PORT=3020
+    labels:
+    - "soam.log=yes"
+
+# gatekeeper:
+#     extends:
+#         file: common.yml
+#         service: usrv
+#     volumes:
+#     - ./chat-gk-db:/app/
+#     ports:
+#     - "3030:3030"
+#     links:
+#     - mongodb
+#     environment:
+#     - VIRTUAL_HOST=gatekeeper.avito.local
+#     - VIRTUAL_PORT=3030
+#     labels:
+#     - "soam.log=yes"
+
+dns:
+    image: sroegner/dnsmasq
+    volumes:
+    - ./dnsmasq.conf:/etc/dnsmasq.conf
+    ports:
+    - "172.17.42.1:53:5353/udp"
+
+nginx:
+    image: jwilder/nginx-proxy
+    volumes:
+    - /var/run/docker.sock:/tmp/docker.sock
+    ports:
+    - "80:80"
+
+# mongodb:
+#     image: mongo
+#     ports:
+#     - "47017:27017"
+#     volumes:
+#     - ./data/mongodb:/data/db
+
+soam:
+    image: quay.io/geniousphp/soam:0.1
+    volumes:
+    - /var/run/docker.sock:/var/run/docker.sock
+    - /etc:/opt/etc
+    ports:
+    - "28778:28778"
+    privileged: true
+    environment:
+    - PORT=28778
+    - DOCKER_SOCKET=/var/run/docker.sock
+    - SHOW_LOG_BY_LABEL=soam.log
+    - VIRTUAL_HOST=log.avito.local
+    - VIRTUAL_PORT=28778
