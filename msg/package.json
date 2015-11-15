@@ -1,9 +1,9 @@
 {
-  "name": "chat-gk-db",
+  "name": "msg",
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "DEBUG=chat-gk-db:* node-dev ./bin/www"
+    "start": "DEBUG=msg:* node-dev ./bin/www"
   },
   "dependencies": {
     "body-parser": "~1.13.2",

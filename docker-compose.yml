@@ -12,22 +12,21 @@ client:
     labels:
     - "soam.log=yes"
 
-# auth:
-#     extends:
-#         file: common.yml
-#         service: usrv
-#     volumes:
-#     - ./auth:/app/
-#     ports:
-#     - "3010:3010"
-#     links:
-#     - config
-#     - mongodb
-#     environment:
-#     - VIRTUAL_HOST=auth.avito.local
-#     - VIRTUAL_PORT=3010
-#     labels:
-#     - "soam.log=yes"
+user:
+    extends:
+        file: common.yml
+        service: usrv
+    volumes:
+    - ./user:/app/
+    ports:
+    - "3010:3010"
+    links:
+    - mongodb
+    environment:
+    - VIRTUAL_HOST=user.avito.local
+    - VIRTUAL_PORT=3010
+    labels:
+    - "soam.log=yes"
 
 chat:
     extends:
@@ -43,21 +42,21 @@ chat:
     labels:
     - "soam.log=yes"
 
-# gatekeeper:
-#     extends:
-#         file: common.yml
-#         service: usrv
-#     volumes:
-#     - ./chat-gk-db:/app/
-#     ports:
-#     - "3030:3030"
-#     links:
-#     - mongodb
-#     environment:
-#     - VIRTUAL_HOST=gatekeeper.avito.local
-#     - VIRTUAL_PORT=3030
-#     labels:
-#     - "soam.log=yes"
+msg:
+    extends:
+        file: common.yml
+        service: usrv
+    volumes:
+    - ./msg:/app/
+    ports:
+    - "3030:3030"
+    links:
+    - mongodb
+    environment:
+    - VIRTUAL_HOST=msg.avito.local
+    - VIRTUAL_PORT=3030
+    labels:
+    - "soam.log=yes"
 
 dns:
     image: sroegner/dnsmasq
@@ -73,12 +72,12 @@ nginx:
     ports:
     - "80:80"
 
-# mongodb:
-#     image: mongo
-#     ports:
-#     - "47017:27017"
-#     volumes:
-#     - ./data/mongodb:/data/db
+mongodb:
+    image: mongo
+    ports:
+    - "47017:27017"
+    volumes:
+    - ./data/mongodb:/data/db
 
 soam:
     image: quay.io/geniousphp/soam:0.1
