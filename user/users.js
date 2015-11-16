@@ -1,16 +1,21 @@
 module.exports = {
 	'1':{
-		username: '',
+		username: 'ahmed',
 		online: false,
 		socketId: ''
 	},
-	'1':{
-		username: '',
+	'2':{
+		username: 'bachiri',
 		online: false,
 		socketId: ''
 	},
-	'1':{
-		username: '',
+	'3':{
+		username: 'igorman',
+		online: false,
+		socketId: ''
+	},
+	'4':{
+		username: 'noufal',
 		online: false,
 		socketId: ''
 	}

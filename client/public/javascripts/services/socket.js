@@ -1,24 +1,22 @@
 (function(){
-'use strict'
-var asApp = angular.module('asApp');
+'use strict';
+var avitoApp = angular.module('avitoApp');
 
 
-asApp.factory('socketService',[
+avitoApp.factory('socketService',[
   '$safeApply', 
   '$window', 
-  'GlobalVarsSrv', 
-  function ($safeApply, $window, GlobalVarsSrv) {
+  function ($safeApply, $window) {
   
   return function($scope, channel){
-    this.base = GlobalVarsSrv.baseGameIO;
+    this.base = 'http://avito.local';
     this.channel = channel;
     this.url = this.base + this.channel;
     this.socket = {};
  
     this.connectSocket = function(){
       this.socket = io(this.url, {
-        forceNew: true,
-        query: 'token=' + $window.sessionStorage.token
+        forceNew: true
       });
     };
     this.disconnectSocket = function(){
