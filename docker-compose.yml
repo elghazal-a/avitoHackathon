@@ -9,6 +9,7 @@ client:
     environment:
     - VIRTUAL_HOST=avito.local
     - VIRTUAL_PORT=3000
+    - PORT=3000
     labels:
     - "soam.log=yes"
 
@@ -25,6 +26,7 @@ user:
     environment:
     - VIRTUAL_HOST=user.avito.local
     - VIRTUAL_PORT=3010
+    - PORT=3010
     labels:
     - "soam.log=yes"
 
@@ -39,6 +41,7 @@ chat:
     environment:
     - VIRTUAL_HOST=chat.avito.local
     - VIRTUAL_PORT=3020
+    - PORT=3020
     labels:
     - "soam.log=yes"
 
@@ -55,6 +58,7 @@ msg:
     environment:
     - VIRTUAL_HOST=msg.avito.local
     - VIRTUAL_PORT=3030
+    - PORT=3030
     labels:
     - "soam.log=yes"
 
@@ -63,7 +67,7 @@ dns:
     volumes:
     - ./dnsmasq.conf:/etc/dnsmasq.conf
     ports:
-    - "172.17.42.1:53:5353/udp"
+    - "172.17.0.1:53:5353/udp"
 
 nginx:
     image: jwilder/nginx-proxy

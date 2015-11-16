@@ -8,15 +8,14 @@ avitoApp.factory('socketService',[
   '$window', 
   function ($safeApply, $window) {
   
-  return function($scope, channel){
-    this.base = 'http://avito.local';
-    this.channel = channel;
-    this.url = this.base + this.channel;
+  return function($scope, userId){
+    this.url = 'http://chat.avito.local/';
     this.socket = {};
  
     this.connectSocket = function(){
       this.socket = io(this.url, {
-        forceNew: true
+        forceNew: true,
+        query: 'id=' + userId
       });
     };
     this.disconnectSocket = function(){

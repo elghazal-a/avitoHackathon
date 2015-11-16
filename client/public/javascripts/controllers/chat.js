@@ -3,29 +3,32 @@
 
 var avitoApp = angular.module('avitoApp');
 
-avitoApp.controller('roomCtrl', ['$scope', 
+avitoApp.controller('chatCtrl', ['$scope', 
 	'$rootScope', 
-	'$routeParams', 
-	'$location', 
 	'socketService', 
-	roomCtrl]);
+	chatCtrl]);
 
-function roomCtrl($scope, $rootScope, $location, socketService){
+function chatCtrl($scope, $rootScope, socketService){
 	// Handle socket connexion
-	var	channel = '/';
 
-	var mySocket = new socketService($scope, channel);
+	var mySocket = new socketService($scope, '1');
 	mySocket.connectSocket();
 
 	$scope.$on('$destroy', function(){
 		mySocket.disconnectSocket();
 	});
 
-
 	/*
 	* Events
 	*/
 
+	var user = {
+		id: 1,
+		username: 'ahmed',
+		online: false,
+		socketId: ''
+
+	}
 	mySocket.on('chat:initialized', function(data){
 	});
 
@@ -34,15 +37,18 @@ function roomCtrl($scope, $rootScope, $location, socketService){
 		// $scope.messages.push(msg);
 	});
 	$scope.sendMsg = function(msgAenvoyer){
-		// if(!msgAenvoyer || msgAenvoyer == "")
-		// 	return;
-		// mySocket.emit('msg:new', msgAenvoyer);
-		// $scope.messages.push({
-		// 	senderUsername: $scope.user.name,
-		// 	msg: msgAenvoyer,
-		// 	date: new Date()
-		// });
-		// $scope.msg = "";
+		if(!msgAenvoyer || msgAenvoyer == "")
+			return;
+		mySocket.emit('msg:new', {
+			msg: msgAenvoyer,
+			to: toUserId
+		});
+		$scope.messages.push({
+			senderUsername: $scope.user.name,
+			msg: msgAenvoyer,
+			date: new Date()
+		});
+		$scope.msg = "";
 	};
 }
 
