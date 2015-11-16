@@ -11,12 +11,5 @@ do
     		npm install
     		cd ../
     	fi
-		if [ -e "$dir/bower.json" ]
-		then
-			echo -e "\x1B[01;94m Installing bower dependencies for $dir \x1B[0m"
-			cd $dir
-    		bower install
-    		cd ../
-    	fi
     fi
 done
