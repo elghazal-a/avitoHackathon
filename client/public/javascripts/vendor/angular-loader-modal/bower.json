@@ -1,0 +1,31 @@
+{
+  "name": "angular-loader-modal",
+  "main": ["angular-loader-modal.js", "angular-loader-modal.css"],
+  "version": "1.0.0",
+  "authors": [
+    "Matthew Hardnack <matthewhardnack@gmail.com>"
+  ],
+  "description": "Creates a directive modal with a loading animation that can be toggled using it's angular service.",
+  "keywords": [
+    "angular",
+    "loader",
+    "modal",
+    "spinner",
+    "css",
+    "directive",
+    "loading",
+    "animation"
+  ],
+  "dependencies": {
+    "angular": ">=1.1.5"
+  },
+  "license": "MIT",
+  "homepage": "http://www.matthewhardnack.com",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
