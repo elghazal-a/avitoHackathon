@@ -1,8 +1,8 @@
 .wrap
   .avatar
     img(src='images/login.png')
-  input(type='text', placeholder='username', required='')
+  input(type='text', placeholder='username', required='', ng-model="username")
   .bar
     i
   br
-  button Sign in
+  button(ng-click="login(username)") Sign in

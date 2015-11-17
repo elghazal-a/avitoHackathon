@@ -58,6 +58,9 @@ body {
   color: #92959E;
 }
 
+a.conversation { color: inherit; } 
+a.searchUser { color: inherit; } 
+
 .chat {
   width: 490px;
   float: left;

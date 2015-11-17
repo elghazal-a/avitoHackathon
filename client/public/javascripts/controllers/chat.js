@@ -5,18 +5,49 @@ var avitoApp = angular.module('avitoApp');
 
 avitoApp.controller('chatCtrl', ['$scope', 
 	'$rootScope', 
-	'socketService', 
+	'$http',
+	'socketService',
 	chatCtrl]);
 
-function chatCtrl($scope, $rootScope, socketService){
+function chatCtrl($scope, $rootScope, $http, socketService){
 	// Handle socket connexion
+	$scope.me = $rootScope.me;
 
-	var mySocket = new socketService($scope, '1');
+	var mySocket = new socketService($scope, $scope.me.userid);
 	mySocket.connectSocket();
 	$scope.$on('$destroy', function(){
 		mySocket.disconnectSocket();
 	});
+	$scope.users = [];
+	$scope.userSearch = null;
+	$scope.chattingWith = null;
+	$scope.msgs = [
+	{
+		msg: 'Hi Vincent, how are you? How is the project coming along?',
+		useridFrom: $scope.me.userid
+	},
+	{
+		msg: 'Are we meeting today? Project has been already finished and I have results to show you.',
+		useridFrom: "xxxxxxxxxx"
+	}
+	];
 
+	$scope.searchUser = function(username){
+		$http.get('http://user.avito.local/users/username/' + username).
+		success(function(data, status, headers, config){
+			$scope.userSearch = data;
+		}).
+		error(function(data, status, headers, config){
+			alert('Please enter a valid username');
+		});
+	}
+
+	$scope.chatWith = function(user){
+		$scope.chattingWith = user;
+		//Fetch messages from local db
+		//Fetch messages from real db
+		
+	}
 	/*
 	* Events
 	*/

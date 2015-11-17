@@ -6,7 +6,7 @@ exports.initRoutes  = function (app) {
         res.render('index');
     });
 
-    app.get('/partials/index', function(req, res){
+    app.get('/partials/chat', function(req, res){
 		res.render('partials/chat');
     });
 

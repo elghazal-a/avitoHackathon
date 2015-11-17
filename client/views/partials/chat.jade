@@ -2,52 +2,60 @@ html
   body
     .container.clearfix
       #people-list.people-list
-        ul.list
-          li.clearfix(ng-repeat='user in users')
-            .about
-              .name {{user.username}}
-              .status
-                span(ng-if='user.online == true')
-                  i.fa.fa-circle.online
-                  |  online
-                span(ng-if='user.online != true')
-                  i.fa.fa-circle.offline
-                  |  offline
+        .search
+          input(type='text', placeholder='search', ng-model="username")
+          a.searchUser(href="", ng-click="searchUser(username)")
+            i.fa.fa-search
 
-      .chat
+        ul.list
+          li.clearfix(ng-show='userSearch')
+            a.conversation(href="", ng-click="chatWith(userSearch)")
+              .about
+                .name {{userSearch.username}}
+                .status
+                  span(ng-if='userSearch.online == true')
+                    i.fa.fa-circle.online
+                    |  online
+                  span(ng-if='userSearch.online != true')
+                    i.fa.fa-circle.offline
+                    |  offline
+          li.clearfix(ng-repeat='user in users')
+            a.conversation(href="", ng-click="chatWith(user)")
+              .about
+                .name {{user.username}}
+                .status
+                  span(ng-if='user.online == true')
+                    i.fa.fa-circle.online
+                    |  online
+                  span(ng-if='user.online != true')
+                    i.fa.fa-circle.offline
+                    |  offline
+
+      .chat(ng-show='chattingWith')
         .chat-header.clearfix
-          // <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/chat_avatar_01_green.jpg" alt="avatar" />
           .chat-about
-            .chat-with Chat with Vincent Porter
-            .chat-num-messages already 1 902 messages
+            .chat-with Chat with {{chattingWith.username}}
         // end chat-header
         .chat-history
           ul
-            li.clearfix
-              .message-data.align-right
-                span.message-data-time 10:10 AM, Today
-                span.message-data-name Olia
-                i.fa.fa-circle.me
-              .message.other-message.float-right
-                | Hi Vincent, how are you? How is the project coming along?
-            li
-              .message-data
-                span.message-data-name
-                  i.fa.fa-circle.online
-                  |  Vincent
-                span.message-data-time 10:12 AM, Today
-              .message.my-message
-                | Are we meeting today? Project has been already finished and I have results to show you.
-            //
-              <li>
-              <div class="message-data">
-              <span class="message-data-name"><i class="fa fa-circle online"></i> Vincent</span>
-              <span class="message-data-time">10:31 AM, Today</span>
-              </div>
-              <i class="fa fa-circle online"></i>
-              <i class="fa fa-circle online" style="color: #AED2A6"></i>
-              <i class="fa fa-circle online" style="color:#DAE9DA"></i>
-              </li>
+            li(ng-class="{clearfix: msg.useridFrom == me.userid}", ng-repeat="msg in msgs")
+              div(ng-if='msg.useridFrom == me.userid')
+                .message-data.align-right
+                  span.message-data-time 10:10 AM, Today
+                  span.message-data-name Olia
+                  i.fa.fa-circle.me
+                .message.other-message.float-right
+                  | {{msg.msg}}
+              div(ng-if='msg.useridFrom != me.userid')
+                .message-data
+                  span.message-data-name
+                    i.fa.fa-circle.online 
+                    | Vincent
+                  span.message-data-time 10:12 AM, Today
+                .message.my-message
+                  | {{msg.msg}}
+
+
         // end chat-history
         .chat-message.clearfix
           textarea#message-to-send(name='message-to-send', placeholder='Type your message', rows='3')
