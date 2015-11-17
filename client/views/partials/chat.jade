@@ -36,7 +36,7 @@ html
           .chat-about
             .chat-with Chat with {{chattingWith.username}}
         // end chat-header
-        .chat-history
+        .chat-history(scroll-glue)
           ul
             li(ng-class="{clearfix: msg.useridFrom == me.userid}", ng-repeat="msg in msgs")
               div(ng-if='msg.useridFrom == me.userid')

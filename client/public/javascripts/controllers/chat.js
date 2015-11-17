@@ -28,16 +28,7 @@ function chatCtrl($scope, $rootScope, $http, socketService){
 			useridFrom: 'userid from where the msg comes'
 		}
 	*/
-	$scope.msgs = [
-	{
-		msg: 'Hi Vincent, how are you? How is the project coming along?',
-		useridFrom: $scope.me.userid
-	},
-	{
-		msg: 'Are we meeting today? Project has been already finished and I have results to show you.',
-		useridFrom: "xxxxxxxxxx"
-	}
-	];
+	$scope.msgs = [];
 
 	$scope.searchUser = function(username){
 		$http.get('http://user.avito.local/users/username/' + username).

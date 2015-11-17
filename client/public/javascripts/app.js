@@ -4,7 +4,8 @@
 'use strict';
 
 var avitoApp = angular.module('avitoApp', ['ngRoute', 
-  'SafeApply'
+  'SafeApply',
+  'luegg.directives'
   ]);
 
 
