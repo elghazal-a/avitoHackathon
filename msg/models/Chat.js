@@ -25,10 +25,13 @@ ChatSchema.statics.saveMsg = function(data, cb){
   /*
   data = {from, to, msg}
   */
-  
-  this.update({
-    owners: {$in: [data.from, data.to]}
+  console.log(data.from);
+  console.log(data.to);
+  this.update({$and: [{
+    owners: {$in: [data.from]}
   }, {
+    owners: {$in: [data.to]}
+  }]}, {
     owners: [data.from, data.to],
     '$push': {msgs: {
       from: data.from,  
@@ -50,9 +53,17 @@ ChatSchema.statics.saveMsg = function(data, cb){
 //   }, cb);
 // };
 
-// ChatSchema.statics.getConversations = function(userId, cb){
-//   this.find({owners: {$in: [userId]}}, cb);
-// };
+ChatSchema.statics.getConversations = function(userId, cb){
+  this.find({owners: {$in: [userId]}}, cb);
+};
+
+ChatSchema.statics.getHistory = function(userid1, userid2, cb){
+  this.findOne({$and: [{
+    owners: {$in: [userid1]}
+  }, {
+    owners: {$in: [userid2]}
+  }]}, cb);
+};
 
 
 // ChatSchema.index({'owners': 1}, {unique : true, dropDups : true});

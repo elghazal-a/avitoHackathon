@@ -38,15 +38,15 @@ html
         // end chat-header
         .chat-history(scroll-glue)
           ul
-            li(ng-class="{clearfix: msg.useridFrom == me.userid}", ng-repeat="msg in msgs")
-              div(ng-if='msg.useridFrom == me.userid')
+            li(ng-class="{clearfix: msg.from == me.userid}", ng-repeat="msg in msgs")
+              div(ng-if='msg.from == me.userid')
                 .message-data.align-right
                   span.message-data-time 10:10 AM, Today
                   span.message-data-name {{me.username}}
                   i.fa.fa-circle.me
                 .message.other-message.float-right
                   | {{msg.msg}}
-              div(ng-if='msg.useridFrom != me.userid')
+              div(ng-if='msg.from != me.userid')
                 .message-data
                   span.message-data-name
                     i.fa.fa-circle.online 

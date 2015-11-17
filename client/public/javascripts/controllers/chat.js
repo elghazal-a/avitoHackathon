@@ -25,7 +25,7 @@ function chatCtrl($scope, $rootScope, $http, socketService){
 	/*
 		{
 			msg: 'the message',
-			useridFrom: 'userid from where the msg comes'
+			from: 'userid from where the msg comes'
 		}
 	*/
 	$scope.msgs = [];
@@ -36,7 +36,7 @@ function chatCtrl($scope, $rootScope, $http, socketService){
 			$scope.userSearch = data;
 		}).
 		error(function(data, status, headers, config){
-			alert('Please enter a valid username');
+			alert('User not fount');
 		});
 	}
 
@@ -49,6 +49,14 @@ function chatCtrl($scope, $rootScope, $http, socketService){
 		/*
 			Fetch messages from real db
 		*/
+		$http.get('http://msg.avito.local/msgs/' + $scope.me.userid + '/' + $scope.chattingWith.userid).
+		success(function(data, status, headers, config){
+			$scope.msgs = data;
+			console.log(data);
+		}).
+		error(function(data, status, headers, config){
+			alert('Error fetching the conversation');
+		});
 	}
 
 	/*
@@ -63,7 +71,7 @@ function chatCtrl($scope, $rootScope, $http, socketService){
 		if($scope.chattingWith && $scope.chattingWith.userid == data.from){
 			$scope.msgs.push({
 				msg: data.msg,
-				useridFrom: data.from
+				from: data.from
 			});
 		}
 	});
@@ -76,7 +84,7 @@ function chatCtrl($scope, $rootScope, $http, socketService){
 		});
 		$scope.msgs.push({
 			msg: newMsg,
-			useridFrom: $scope.me.userid,
+			from: $scope.me.userid,
 			date: new Date()
 		});
 		$scope.newMsg = "";
