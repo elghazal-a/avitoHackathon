@@ -11,13 +11,39 @@ io.use(function(socket, next) {
   next();
 });
 
-var users = require('./users');
+var Users = require('./users');
 io.on('connection', function (socket) {
   console.log('Connected to the chat');
 
   //Mark User as online and stock socketId
-  users[socket.userid].online = true;
-  users[socket.userid].socketId = socket.id;
+  Users.forEach(function(user, i){
+  	if(user.userid == socket.userid){
+  		user.online = true;
+  		user.socketId = socket.id;
+  	}
+  });
+  
+  socket.emit('chat:initialize', {
+  	users: Users
+  });
+
+  socket.on('msg:new', function(data){
+  	//data = { msg, to }
+  	
+  	//Notify data.to that he got a message from socket.userid
+  	
+  	//send msg to data.to
+	  Users.forEach(function(user, i){
+	  	if(user.userid == socket.userid){
+		  	socket.broadcast
+		  	.to(user.socketId)
+		  	.emit('msg:new', {
+		  		from: socket.userid,
+		  		msg: data.msg
+		  	});
+	  	}
+	  });
+  })
 });
 
 

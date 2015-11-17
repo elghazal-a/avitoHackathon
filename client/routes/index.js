@@ -1,9 +1,14 @@
-var express = require('express');
-var router = express.Router();
+'use strict';
+var path = require('path');
+exports.initRoutes  = function (app) {
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
-});
+    app.get('/', function(req, res){
+        res.render('index');
+    });
 
-module.exports = router;
+    app.get('/partials/index', function(req, res){
+		res.render('partials/chat');
+    });
+        
+    console.log('Routes handling initialized');
+};

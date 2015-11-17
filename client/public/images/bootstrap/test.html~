@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Bootstrap</title>
+
+    <link rel="stylesheet" type="text/css" href="./bootstrap/css/bootstrap.css">
+        
+    <script src="./bootstrap/js/jquery.js"></script>
+    <script src="./bootstrap/js/bootstrap.js"></script>
+    
+</head>
+<body>
+    
+    <div class="row">
+    <div class="span4">span4</div>
+    <div class="span8">span8</div>
+    </div>
+
+    
+</body>
+</html>

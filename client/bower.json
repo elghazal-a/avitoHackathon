@@ -1,15 +1,19 @@
 {
-  "name": "avito",
+  "name": "asdecartes",
   "version": "0.0.1",
+  "authors": [
+    "geniousphp <geniousphp@gmail.com>"
+  ],
   "main": "server.js",
   "license": "MIT",
-  "homepage": "http://www.avito.ma",
+  "homepage": "http://www.asdecartes.com",
   "private": true,
   "dependencies": {
     "bootstrap": "~3.1.1",
     "jquery": "~2.1.0",
     "underscore": "~1.6.0",
     "moment": "~2.10.3",
+    "normalize-css": "~3.0.3",
     "angular": "~1.4.0",
     "angular-route": "~1.4.0",
     "angular-resource": "~1.4.0",
@@ -21,9 +25,13 @@
     "angular-dialog-service": "~5.2.6",
     "angular-safeapply": "~1.0.4",
     "angular-notify-toaster": "~0.4.14",
+    "angular-loader-modal": "~1.0.1",
     "ng-scrollbar": "~0.0.7",
-    "angularjs-scroll-glue": "~0.0.1"
+    "angularjs-scroll-glue": "~0.0.1",
+    "geniousphp-angular-loader-modal": "*"
   },
   "devDependencies": {
+    "angular-mocks": "~1.4.0",
+    "ngMidwayTester": "*"
   }
 }

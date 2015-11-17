@@ -13,7 +13,6 @@ function chatCtrl($scope, $rootScope, socketService){
 
 	var mySocket = new socketService($scope, '1');
 	mySocket.connectSocket();
-
 	$scope.$on('$destroy', function(){
 		mySocket.disconnectSocket();
 	});
@@ -29,7 +28,9 @@ function chatCtrl($scope, $rootScope, socketService){
 		socketId: ''
 
 	}
-	mySocket.on('chat:initialized', function(data){
+	mySocket.on('chat:initialize', function(data){
+		console.log($scope.users);
+		$scope.users = data.users;
 	});
 
 	mySocket.on('msg:new', function(msg){

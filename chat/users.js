@@ -1,22 +1,26 @@
-module.exports = {
-	'1':{
+module.exports = [
+	{
+		userid: 1,
 		username: 'ahmed',
 		online: false,
 		socketId: ''
 	},
-	'2':{
+	{
+		userid: 2,
 		username: 'bachiri',
-		online: false,
+		online: true,
 		socketId: ''
 	},
-	'3':{
+	{
+		userid: 3,
 		username: 'igorman',
 		online: false,
 		socketId: ''
 	},
-	'4':{
+	{
+		userid: 4,
 		username: 'noufal',
-		online: false,
+		online: true,
 		socketId: ''
 	}
-}
+]
