@@ -25,8 +25,6 @@ ChatSchema.statics.saveMsg = function(data, cb){
   /*
   data = {from, to, msg}
   */
-  console.log(data.from);
-  console.log(data.to);
   this.update({$and: [{
     owners: {$in: [data.from]}
   }, {

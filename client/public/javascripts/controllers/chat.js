@@ -36,7 +36,7 @@ function chatCtrl($scope, $rootScope, $http, socketService){
 			$scope.userSearch = data;
 		}).
 		error(function(data, status, headers, config){
-			alert('User not fount');
+			alert('User not found');
 		});
 	}
 

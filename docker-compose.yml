@@ -38,9 +38,11 @@ chat:
     - ./chat:/app/
     ports:
     - "3020:3020"
+    links:
+    - redis
     environment:
     - VIRTUAL_HOST=chat.avito.local
-    - VIRTUAL_PORT=3020
+    - VIRTUAL_8ORT=3020
     - PORT=3020
     labels:
     - "soam.log=yes"
@@ -82,6 +84,13 @@ mongodb:
     - "47017:27017"
     volumes:
     - ./data/mongodb:/data/db
+
+redis:
+    image: redis
+    ports:
+    - "8379:6379"
+    volumes:
+    - ./data/redis:/data
 
 soam:
     image: quay.io/geniousphp/soam:0.1
