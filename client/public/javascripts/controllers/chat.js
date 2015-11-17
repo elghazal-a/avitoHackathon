@@ -21,6 +21,13 @@ function chatCtrl($scope, $rootScope, $http, socketService){
 	$scope.users = [];
 	$scope.userSearch = null;
 	$scope.chattingWith = null;
+
+	/*
+		{
+			msg: 'the message',
+			useridFrom: 'userid from where the msg comes'
+		}
+	*/
 	$scope.msgs = [
 	{
 		msg: 'Hi Vincent, how are you? How is the project coming along?',
@@ -44,43 +51,44 @@ function chatCtrl($scope, $rootScope, $http, socketService){
 
 	$scope.chatWith = function(user){
 		$scope.chattingWith = user;
-		//Fetch messages from local db
-		//Fetch messages from real db
-		
+		/*
+			Fetch messages from local db 
+			skip it now until the next iteration
+		*/
+		/*
+			Fetch messages from real db
+		*/
 	}
+
 	/*
 	* Events
 	*/
 
-	var user = {
-		id: 1,
-		username: 'ahmed',
-		online: false,
-		socketId: ''
-
-	}
 	mySocket.on('chat:initialize', function(data){
-		console.log($scope.users);
 		$scope.users = data.users;
 	});
 
-	mySocket.on('msg:new', function(msg){
-		// msg.date = new Date();
-		// $scope.messages.push(msg);
+	mySocket.on('msg:new', function(data){
+		if($scope.chattingWith && $scope.chattingWith.userid == data.from){
+			$scope.msgs.push({
+				msg: data.msg,
+				useridFrom: data.from
+			});
+		}
 	});
-	$scope.sendMsg = function(msgAenvoyer){
-		if(!msgAenvoyer || msgAenvoyer == "")
+	$scope.sendMsg = function(newMsg){
+		if(!newMsg || newMsg == "")
 			return;
 		mySocket.emit('msg:new', {
-			msg: msgAenvoyer,
-			to: toUserId
+			msg: newMsg,
+			to: $scope.chattingWith.userid
 		});
-		$scope.messages.push({
-			senderUsername: $scope.user.name,
-			msg: msgAenvoyer,
+		$scope.msgs.push({
+			msg: newMsg,
+			useridFrom: $scope.me.userid,
 			date: new Date()
 		});
-		$scope.msg = "";
+		$scope.newMsg = "";
 	};
 }
 

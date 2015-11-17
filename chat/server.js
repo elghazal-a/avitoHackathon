@@ -13,7 +13,6 @@ io.use(function(socket, next) {
 
 var Users = require('./users');
 io.on('connection', function (socket) {
-  console.log('Connected to the chat');
 
   //Mark User as online and stock socketId
   Users.forEach(function(user, i){
@@ -22,6 +21,8 @@ io.on('connection', function (socket) {
   		user.socketId = socket.id;
   	}
   });
+
+  console.log(Users);
   
   socket.emit('chat:initialize', {
   	users: Users
@@ -34,8 +35,9 @@ io.on('connection', function (socket) {
   	
   	//send msg to data.to
 	  Users.forEach(function(user, i){
-	  	if(user.userid == socket.userid){
-		  	socket.broadcast
+	  	if(user.userid == data.to){
+		  	socket
+        .broadcast
 		  	.to(user.socketId)
 		  	.emit('msg:new', {
 		  		from: socket.userid,

@@ -106,6 +106,7 @@ a.searchUser { color: inherit; }
 .chat .chat-history .message-data-time {
   color: #a8aab1;
   padding-left: 6px;
+  padding-right: 6px;
 }
 .chat .chat-history .message {
   color: white;

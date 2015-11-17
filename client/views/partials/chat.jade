@@ -42,7 +42,7 @@ html
               div(ng-if='msg.useridFrom == me.userid')
                 .message-data.align-right
                   span.message-data-time 10:10 AM, Today
-                  span.message-data-name Olia
+                  span.message-data-name {{me.username}}
                   i.fa.fa-circle.me
                 .message.other-message.float-right
                   | {{msg.msg}}
@@ -50,7 +50,7 @@ html
                 .message-data
                   span.message-data-name
                     i.fa.fa-circle.online 
-                    | Vincent
+                    | {{chattingWith.username}}
                   span.message-data-time 10:12 AM, Today
                 .message.my-message
                   | {{msg.msg}}
@@ -58,10 +58,10 @@ html
 
         // end chat-history
         .chat-message.clearfix
-          textarea#message-to-send(name='message-to-send', placeholder='Type your message', rows='3')
+          textarea#message-to-send(on-enter="sendMsg(newMsg)", ng-model='newMsg', placeholder='Type your message', rows='3')
           // Add emoticone support
           // <i class="fa fa-file-o"></i>
-          button Send
+          button(ng-click="sendMsg(newMsg)") Send
         // end chat-message
       // end chat
     // end container
