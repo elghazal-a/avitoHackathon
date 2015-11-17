@@ -19,11 +19,11 @@ app.use(methodOverride());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
+routes.initRoutes(app);
 if ('development' == app.get('env')) {
   app.use(errorHandler());
 }
 
-routes.initRoutes(app);
 
 server.listen(app.get('port'), function(){
   // console.log("Express server listening on " in mode " + app.get('env'));

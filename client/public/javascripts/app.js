@@ -15,6 +15,10 @@ avitoApp.config(['$routeProvider', '$locationProvider', '$httpProvider',
     templateUrl: 'partials/index',
     controller: 'chatCtrl'
   });
+  $routeProvider.when('/login', {
+    templateUrl: 'partials/login'
+    // controller: 'loginCtrl'
+  });
   $routeProvider.otherwise({
     redirectTo: '/'});
   $locationProvider.html5Mode(true);

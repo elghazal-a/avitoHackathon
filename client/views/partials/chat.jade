@@ -7,8 +7,13 @@ html
             .about
               .name {{user.username}}
               .status
-                i.fa.fa-circle.online
-                |  online
+                span(ng-if='user.online == true')
+                  i.fa.fa-circle.online
+                  |  online
+                span(ng-if='user.online != true')
+                  i.fa.fa-circle.offline
+                  |  offline
+
       .chat
         .chat-header.clearfix
           // <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/chat_avatar_01_green.jpg" alt="avatar" />
