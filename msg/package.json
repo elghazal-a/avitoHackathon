@@ -8,7 +8,9 @@
   "dependencies": {
     "body-parser": "~1.13.2",
     "debug": "~2.2.0",
+    "errorhandler": "^1.4.2",
     "express": "~4.13.1",
+    "mongoose": "^4.2.6",
     "morgan": "~1.6.1"
   }
 }
