@@ -1,0 +1,26 @@
+
+//to integrate with compose yum  O
+
+filter :
+    extends:
+        file: common.yml
+        service: usrv
+ 
+    ports:
+    - "9200:9200"
+    links:
+    - mongodb
+    environment:
+    - VIRTUAL_HOST=user.avito.local
+    - VIRTUAL_PORT=3010
+    - PORT=3010
+    labels:
+    - "soam.log=yes"
+
+
+elasticsearch:
+    image: elasticsearch
+    ports:
+    - "9200:9200"
+    volumes:
+    - ./data/elasticsearch:/data/db
