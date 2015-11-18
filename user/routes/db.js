@@ -8,7 +8,7 @@ module.exports = [
 	{
 		userid: 2,
 		username: 'bachiri',
-		online: true,
+		online: false,
 		socketId: ''
 	},
 	{
@@ -20,7 +20,7 @@ module.exports = [
 	{
 		userid: 4,
 		username: 'noufal',
-		online: true,
+		online: false,
 		socketId: ''
 	}
 ]
