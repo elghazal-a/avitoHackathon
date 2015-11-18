@@ -13,7 +13,7 @@ function chatCtrl($scope, $rootScope, $http, socketService){
 	// Handle socket connexion
 	$scope.me = $rootScope.me;
 
-	var mySocket = new socketService($scope, $scope.me.userid);
+	var mySocket = new socketService($scope, $scope.me.userid, $scope.me.username);
 	mySocket.connectSocket();
 	$scope.$on('$destroy', function(){
 		mySocket.disconnectSocket();
@@ -73,6 +73,27 @@ function chatCtrl($scope, $rootScope, $http, socketService){
 				from: data.from
 			});
 		}
+		//If data.fromUsername doesn't exist in users then add it
+		// var exist = false;
+		// $scope.users.forEach(function(user, i){
+		// 	if(user.username == data.fromUsername)
+		// 		exist = true;
+		// });
+
+		// if(!exist){
+		// 	$scope.users.push({
+		// 		userid: data.from,
+		// 		username: data.fromUsername,
+		// 		online: true
+		// 	})
+		// }
+		
+
+
+		//Marq the msg as delivred
+		// mySocket.emit('msg:delivred', {
+		// 	chattingWith: $scope.chattingWith.userid
+		// });
 	});
 	$scope.sendMsg = function(newMsg){
 		if(!newMsg || newMsg == "")

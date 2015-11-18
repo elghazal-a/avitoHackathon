@@ -23,7 +23,7 @@ router.post('/login', function(req, res) {
 });
 
 //Set On/off (should've implemented general PATCH to make partial update)
-router.patch('/setonline', function(req, res) {
+router.patch('/online', function(req, res) {
 	for (var i = 0; i < users.length; i++) {
 	  	if(users[i].userid == req.body.userid){
 	  		users[i].online = req.body.online;

@@ -12,10 +12,10 @@ app.listen(port, function(){
 io.use(function(socket, next) {
   var handshakeData = socket.request;
   socket.userid = socket.handshake.query.userid
+  socket.username = socket.handshake.query.username
   next();
 });
 
-var Users = require('./users');
 io.on('connection', function (socket) {
 
   async.waterfall([
@@ -23,7 +23,7 @@ io.on('connection', function (socket) {
       //Mark User as online
       request({
         baseUrl: 'http://user.avito.local',
-        url: '/users/setonline',
+        url: '/users/online',
         method: 'PATCH',
         json: true,
         body: {
@@ -112,16 +112,42 @@ io.on('connection', function (socket) {
         .broadcast
   	  	.to(socketid)
   	  	.emit('msg:new', {
-  	  		from: socket.userid,
+          from: socket.userid,
+  	  		fromUsername: socket.username,
   	  		msg: data.msg
   	  	});
       });
     });
   });
 
+  socket.on('msg:delivred', function(data){
+    //data = {chattingwith}
+    request({
+      baseUrl: 'http://msg.avito.local',
+      url: '/msgs/setdelivred',
+      method: 'PATCH',
+      json: true,
+      body: {
+        user1id: socket.userid,
+        user2id: data.chattingwith
+      },
+    }, function(err, res, body) {});
+  });
 
   socket.on('disconnect', function(){
     client.del("socketid:" + socket.userid);
+    //Mark User as offline
+    request({
+      baseUrl: 'http://user.avito.local',
+      url: '/users/online',
+      method: 'PATCH',
+      json: true,
+      body: {
+        userid: socket.userid,
+        online: false
+      },
+    }, function(err, res, body) {
+    });
   });
 });
 
