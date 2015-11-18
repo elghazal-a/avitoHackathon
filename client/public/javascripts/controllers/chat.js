@@ -72,7 +72,12 @@ function chatCtrl($scope, $rootScope, $http, socketService){
 				msg: data.msg,
 				from: data.from
 			});
+
 		}
+		//Marq the msg as delivred
+		// mySocket.emit('msg:delivred', {
+		// 	chattingWith: $scope.chattingWith.userid
+		// });
 	});
 	$scope.sendMsg = function(newMsg){
 		if(!newMsg || newMsg == "")

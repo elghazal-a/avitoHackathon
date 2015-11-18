@@ -15,7 +15,6 @@ io.use(function(socket, next) {
   next();
 });
 
-var Users = require('./users');
 io.on('connection', function (socket) {
 
   async.waterfall([
@@ -23,7 +22,7 @@ io.on('connection', function (socket) {
       //Mark User as online
       request({
         baseUrl: 'http://user.avito.local',
-        url: '/users/setonline',
+        url: '/users/online',
         method: 'PATCH',
         json: true,
         body: {
@@ -119,9 +118,35 @@ io.on('connection', function (socket) {
     });
   });
 
+  socket.on('msg:delivred', function(data){
+    console.log('XXXXXXXXXXXXXXXXXXXXXXXXX');
+    //data = {chattingwith}
+    request({
+      baseUrl: 'http://msg.avito.local',
+      url: '/msgs/setdelivred',
+      method: 'PATCH',
+      json: true,
+      body: {
+        user1id: socket.userid,
+        user2id: data.chattingwith
+      },
+    }, function(err, res, body) {});
+  });
 
   socket.on('disconnect', function(){
     client.del("socketid:" + socket.userid);
+    //Mark User as offline
+    request({
+      baseUrl: 'http://user.avito.local',
+      url: '/users/online',
+      method: 'PATCH',
+      json: true,
+      body: {
+        userid: socket.userid,
+        online: false
+      },
+    }, function(err, res, body) {
+    });
   });
 });
 
