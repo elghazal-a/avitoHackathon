@@ -37,4 +37,18 @@ router.get('/:id1/:id2', function(req, res) {
   })
 });
 
+/*
+GET conversations for specific user
+we need userid
+*/
+router.get('/:id', function(req, res) {
+  Chat.getConversations(req.params.id, function(err, conversations){
+    if(err){
+      console.error(err);
+      return res.sendStatus(500);
+    }
+    res.json(conversations);
+  })
+});
+
 module.exports = router;

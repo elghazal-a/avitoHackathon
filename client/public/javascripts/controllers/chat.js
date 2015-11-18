@@ -52,7 +52,6 @@ function chatCtrl($scope, $rootScope, $http, socketService){
 		$http.get('http://msg.avito.local/msgs/' + $scope.me.userid + '/' + $scope.chattingWith.userid).
 		success(function(data, status, headers, config){
 			$scope.msgs = data;
-			console.log(data);
 		}).
 		error(function(data, status, headers, config){
 			alert('Error fetching the conversation');

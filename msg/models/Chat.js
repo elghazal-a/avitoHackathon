@@ -51,8 +51,10 @@ ChatSchema.statics.saveMsg = function(data, cb){
 //   }, cb);
 // };
 
-ChatSchema.statics.getConversations = function(userId, cb){
-  this.find({owners: {$in: [userId]}}, cb);
+ChatSchema.statics.getConversations = function(userid, cb){
+  this.find({owners: {$in: [userid]}}, {
+    msgs: {$slice: -1}, '_id': 0
+  }, cb);
 };
 
 ChatSchema.statics.getHistory = function(userid1, userid2, cb){
@@ -64,5 +66,4 @@ ChatSchema.statics.getHistory = function(userid1, userid2, cb){
 };
 
 
-// ChatSchema.index({'owners': 1}, {unique : true, dropDups : true});
 module.exports = mongoose.model('Chat', ChatSchema);
