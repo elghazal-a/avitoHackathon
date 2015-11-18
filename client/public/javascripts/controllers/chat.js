@@ -74,19 +74,19 @@ function chatCtrl($scope, $rootScope, $http, socketService){
 			});
 		}
 		//If data.fromUsername doesn't exist in users then add it
-		var exist = false;
-		$scope.users.forEach(function(user, i){
-			if(user.username == data.fromUsername)
-				exist = true;
-		});
+		// var exist = false;
+		// $scope.users.forEach(function(user, i){
+		// 	if(user.username == data.fromUsername)
+		// 		exist = true;
+		// });
 
-		if(!exist){
-			$scope.users.push({
-				userid: data.from,
-				username: data.fromUsername,
-				online: true
-			})
-		}
+		// if(!exist){
+		// 	$scope.users.push({
+		// 		userid: data.from,
+		// 		username: data.fromUsername,
+		// 		online: true
+		// 	})
+		// }
 		
 
 
