@@ -12,6 +12,7 @@ app.listen(port, function(){
 io.use(function(socket, next) {
   var handshakeData = socket.request;
   socket.userid = socket.handshake.query.userid
+  socket.username = socket.handshake.query.username
   next();
 });
 
@@ -111,7 +112,8 @@ io.on('connection', function (socket) {
         .broadcast
   	  	.to(socketid)
   	  	.emit('msg:new', {
-  	  		from: socket.userid,
+          from: socket.userid,
+  	  		fromUsername: socket.username,
   	  		msg: data.msg
   	  	});
       });
@@ -119,7 +121,6 @@ io.on('connection', function (socket) {
   });
 
   socket.on('msg:delivred', function(data){
-    console.log('XXXXXXXXXXXXXXXXXXXXXXXXX');
     //data = {chattingwith}
     request({
       baseUrl: 'http://msg.avito.local',
